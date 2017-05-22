@@ -10,36 +10,28 @@ fixture `init test Global Challenge Foundation Submission`
         .typeText(LOGIN_CONTAINER.find('input[type="email"]'), email)
         .expect(LOGIN_CONTAINER.find(' input[type="password"]').exists).ok()
         .typeText(LOGIN_CONTAINER.find(' input[type="password"]'), password)
-        .click(LOGIN_BUTTON)
     })
 
 const email = "m8r-qkyx87@mailinator.com";
-const password = "testtest1";
+const password = "Testtest1";
 const LOGIN_CONTAINER = Selector('.app-col-right');
 const LOGIN_BUTTON = Selector('.gcf-btn-blue').nth(1);
-const LOGOUT_BUTTON = Selector('.i on-android-exit');
+const LOGOUT_BUTTON = Selector('.ion-android-exit');
 
 
-test('My GCF LOGIN test', async t => {
-  // LOGIN side navigation
-  // Just a verification that login has occured
+test('GCF LOGIN test', async t => {
+  // LOGIN  navigation
   await t
     .expect(Selector('body').exists).ok()
-//    .expect(mariaMainNav.visible).ok()
-//    .expect(mariaMainNav.exists).ok()
+
     .wait(3000)
-    .click(LOGOUT_BUTTON)
-//    .expect(Selector('body').exists).ok()
-//    .expect(mariaWalletNav.exists).ok();
+    .click(LOGIN_BUTTON)
   });
 
+test('GCF LOGOUT test', async t => {
+    //LOGOUT navigation
+    await t
+    .click(LOGIN_BUTTON)
+    .click(LOGOUT_BUTTON)
 
-//  test('GCF LOGOUT test', async t => {
-    //LOGOUT side navigation
-//    await t
-//    .click(LOGIN_BUTTON)
-//    .expect(ASIDE_LOGOUT_CONTAINER.visible).ok()
-//    .click(ASIDE_LOGOUT_CONTAINER);
-
-
-//});
+});
