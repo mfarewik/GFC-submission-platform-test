@@ -8,8 +8,13 @@ fixture `init test Global Challenge Foundation Submission`
         .expect(Selector('#accept-button').exists).ok()
         .click(Selector('#accept-button'))
     })
+function raneMail(){
+  prefix = getTime();
+  return(prefix);
+}
 
-const EMAIL = "XS1@mailinator.com";
+const EMAIL = raneMail + "@mailinator.com";
+console.log(EMAIL);
 const PWD = "Testtest1";
 const ORG = "B-doom";
 const REGISTER_CONTAINER = Selector('.app-col-left');
