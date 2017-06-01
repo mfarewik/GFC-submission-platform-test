@@ -2,7 +2,7 @@ import { Selector } from 'testcafe';
 import { ClientFunction } from 'testcafe';
 
 const email = "m8r-qkyx87@mailinator.com";
-const password = "Testtest1";
+const password = "WRONGPWD";
 const LOGIN_CONTAINER = Selector('.app-col-right');
 const LOGIN_BUTTON = Selector('.gcf-btn-blue').nth(1);
 const LOGOUT_BUTTON = Selector('a.i.ion-android-exit');
@@ -34,7 +34,7 @@ test('GCF Cookie Notefication Test', async t => {
   });
 
   // LOGIN  navigation
-test('GCF LOGIN/LOGOUT Test', async t => {
+test('GCF Wrong PWD LOGIN Test', async t => {
 
   await t
 
@@ -45,7 +45,7 @@ test('GCF LOGIN/LOGOUT Test', async t => {
     .expect(Selector('body').exists).ok()
     .wait(500)
     .click(LOGIN_BUTTON)
-    .wait(500)
-    .expect(Selector('div.gcf-title').exists).ok()
-    .click(Selector('.ion-android-exit'))
+    .wait(1000)
+    //Verifying that the PWD was wrong and that it's not possible to login.
+    .expect(Selector('div.app-formerror-not-abs').exists).ok()
   });

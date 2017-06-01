@@ -120,11 +120,3 @@ test('GCF Register Person test', async t => {
 
     .wait(1000)
   });
-
-// test('GCF LOGOUT test', async t => {
-//     //LOGOUT navigation
-//     await t
-//     .click(LOGIN_BUTTON)
-
-
-//});
