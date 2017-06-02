@@ -48,4 +48,5 @@ test('GCF Wrong PWD LOGIN Test', async t => {
     .wait(1000)
     //Verifying that the PWD was wrong and that it's not possible to login.
     .expect(Selector('div.app-formerror-not-abs').exists).ok()
+    .expect(Selector('div.app-formerror-not-abs').withText('Could not login with given email & password combination').exists).ok()
   });

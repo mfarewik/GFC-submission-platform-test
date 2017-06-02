@@ -8,12 +8,14 @@ fixture `init test Global Challenge Foundation Submission`
         .expect(Selector('#accept-button').exists).ok()
         .click(Selector('#accept-button'))
     })
-function raneMail(){
-  prefix = getTime();
+//Random function to use for creating email prefix
+function ranPrefix(){
+  var d = new Date();
+  var prefix = d.getTime();
   return(prefix);
 }
 
-const EMAIL = raneMail + "@mailinator.com";
+const EMAIL = ranPrefix() + ".GFC@mailinator.com";
 console.log(EMAIL);
 const PWD = "Testtest1";
 const ORG = "B-doom";
@@ -117,11 +119,11 @@ test('GCF Register Person test', async t => {
 //  Save Btn validation
     .click('#register-btn')
 
-    .wait(1000)
+    .wait(500)
 
     .expect(Selector('.gcf-btn-blue').exists).ok()
-//    Selector(.withText('Thank you for registering!')
+    .expect(Selector('.popup-text').withText('Please go to your e-mail inbox to confirm your e-mail').exists).ok()
     .click('.gcf-btn-blue')
 
-    .wait(1000)
+    .wait(500)
   });

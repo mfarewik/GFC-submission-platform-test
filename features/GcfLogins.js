@@ -35,7 +35,6 @@ test('GCF Cookie Notefication Test', async t => {
 
   // LOGIN  navigation
 test('GCF LOGIN/LOGOUT Test', async t => {
-
   await t
 
     .expect(Selector('#accept-button').exists).ok()
@@ -46,6 +45,8 @@ test('GCF LOGIN/LOGOUT Test', async t => {
     .wait(500)
     .click(LOGIN_BUTTON)
     .wait(500)
+
+  //LOGOUT navigation
     .expect(Selector('div.gcf-title').exists).ok()
     .click(Selector('.ion-android-exit'))
   });
