@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, getTime } from 'testcafe';
 
 fixture `init test Global Challenge Foundation Submission`
     .page (`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
@@ -8,14 +8,13 @@ fixture `init test Global Challenge Foundation Submission`
         .expect(Selector('#accept-button').exists).ok()
         .click(Selector('#accept-button'))
     })
-//Random function to use for creating email prefix
-function ranPrefix(){
-  var d = new Date();
-  var prefix = d.getTime();
-  return(prefix);
+function randMs(){
+  const d = new Date();
+  var randomMsec = d.getTime();
+  return randomMsec;
 }
 
-const EMAIL = ranPrefix() + ".GFC@mailinator.com";
+const EMAIL = randMs() + "@mailinator.com";
 console.log(EMAIL);
 const PWD = "Testtest1";
 const ORG = "B-doom";
