@@ -14,8 +14,9 @@ function randMs(){
   return randomMsec;
 }
 
-const EMAIL = randMs() + "@mailinator.com";
-console.log(EMAIL);
+const PREFIX = 'GCF' + randMs()
+const EMAIL =  PREFIX + "@mailinator.com";
+console.log(PREFIX);
 const PWD = "Testtest1";
 const ORG = "B-doom";
 const REGISTER_CONTAINER = Selector('.app-col-left');
@@ -27,6 +28,8 @@ const TITLE = "Meh";
 const NATIONALITY = "Swedish";
 const JOBTITLE = "Swash Buckler"
 const GENDER = "Female"
+const MAILINATOR = 'https://www.mailinator.com/inbox2.jsp?to=' + PREFIX + '#/#public_maildirdiv';
+
 
 // this is a test
 
@@ -42,6 +45,16 @@ var selectGender = Selector('#gender').filter('#gender');
 test('GCF Register Person test', async t => {
   // LOGIN  navigation
   await t
+
+    // This is to create a mail box at https://www.mailinator.com/
+    // To be able to verify that the email has gone to the correct user.
+    .navigateTo(MAILINATOR)
+    .wait(500)
+    .expect(Selector('#publicinboxfield').exists).ok()
+    .wait(500)
+
+    //Navigate back to GCF
+    .navigateTo(`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
     .expect(Selector('body').exists).ok()
     .wait(500)
     .click(REGISTER_BUTTON)
