@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, getTime } from 'testcafe';
 
 fixture `init test Global Challenge Foundation Submission`
     .page (`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
@@ -8,8 +8,15 @@ fixture `init test Global Challenge Foundation Submission`
         .expect(Selector('#accept-button').exists).ok()
         .click(Selector('#accept-button'))
     })
+function randMs(){
+  const d = new Date();
+  var randomMsec = d.getTime();
+  return randomMsec;
+}
 
-const EMAIL = "XS1@mailinator.com";
+const PREFIX = 'GCF' + randMs()
+const EMAIL =  PREFIX + "@mailinator.com";
+console.log(PREFIX);
 const PWD = "Testtest1";
 const ORG = "B-doom";
 const REGISTER_CONTAINER = Selector('.app-col-left');
@@ -21,6 +28,8 @@ const TITLE = "Meh";
 const NATIONALITY = "Swedish";
 const JOBTITLE = "Swash Buckler"
 const GENDER = "Female"
+const MAILINATOR = 'https://www.mailinator.com/inbox2.jsp?to=' + PREFIX + '#/#public_maildirdiv';
+
 
 // this is a test
 
@@ -36,6 +45,16 @@ var selectGender = Selector('#gender').filter('#gender');
 test('GCF Register Person test', async t => {
   // LOGIN  navigation
   await t
+
+    // This is to create a mail box at https://www.mailinator.com/
+    // To be able to verify that the email has gone to the correct user.
+    .navigateTo(MAILINATOR)
+    .wait(500)
+    .expect(Selector('#publicinboxfield').exists).ok()
+    .wait(500)
+
+    //Navigate back to GCF
+    .navigateTo(`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
     .expect(Selector('body').exists).ok()
     .wait(500)
     .click(REGISTER_BUTTON)
@@ -112,11 +131,11 @@ test('GCF Register Person test', async t => {
 //  Save Btn validation
     .click('#register-btn')
 
-    .wait(1000)
+    .wait(500)
 
     .expect(Selector('.gcf-btn-blue').exists).ok()
-//    Selector(.withText('Thank you for registering!')
+    .expect(Selector('.popup-text').withText('Please go to your e-mail inbox to confirm your e-mail').exists).ok()
     .click('.gcf-btn-blue')
 
-    .wait(1000)
+    .wait(500)
   });
