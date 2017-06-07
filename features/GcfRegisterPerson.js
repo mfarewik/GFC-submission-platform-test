@@ -1,22 +1,26 @@
 import { Selector, getTime } from 'testcafe';
+import config from './config';
 
 fixture `init test Global Challenge Foundation Submission`
-    .page (`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
+    .page `${config.baseUrl}/en/submission-platform/sign-in`
+
     .beforeEach(async t => {
         await t
         .expect(REGISTER_BUTTON.visible).ok()
         .expect(Selector('#accept-button').exists).ok()
         .click(Selector('#accept-button'))
     })
-function randMs(){
-  const d = new Date();
-  var randomMsec = d.getTime();
-  return randomMsec;
-}
+    function randMs(){
+        const d = new Date();
+        var randomMsec = d.getTime();
+        return randomMsec;
+      }
 
-const PREFIX = 'GCF' + randMs()
+const PREFIX = 'GCF' + randMs();
 const EMAIL =  PREFIX + "@mailinator.com";
-console.log(PREFIX);
+
+
+
 const PWD = "Testtest1";
 const ORG = "B-doom";
 const REGISTER_CONTAINER = Selector('.app-col-left');
@@ -57,6 +61,7 @@ test('GCF Register Person test', async t => {
     .navigateTo(`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
     .expect(Selector('body').exists).ok()
     .wait(500)
+
     .click(REGISTER_BUTTON)
 
 // Text and dropdown validation
