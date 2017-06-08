@@ -10,15 +10,31 @@ fixture `init test Global Challenge Foundation Submission`
         .expect(Selector('#accept-button').exists).ok()
         .click(Selector('#accept-button'))
     })
+
     function randMs(){
         const d = new Date();
         var randomMsec = d.getTime();
         return randomMsec;
       }
 
+var jsonfile = require('jsonfile')
+var file = '/tmp/data.json'
+var obj = {email: 'JP'}
+
+jsonfile.writeFile(file, obj, function (log) {
+        console.log(log)
+      })
+
 const PREFIX = 'GCF' + randMs();
 const EMAIL =  PREFIX + "@mailinator.com";
+var jsonfile = require('jsonfile')
 
+var file = '../../../data/data.json'
+var obj = {email: EMAIL}
+
+jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
+        console.error(err)
+      })
 
 
 const PWD = "Testtest1";
