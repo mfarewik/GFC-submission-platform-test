@@ -61,7 +61,6 @@ jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
 test('Navigate to GCF Register Person test', async t => {
   // LOGIN  navigation
   await t
-
   // This is to create a mail box at https://www.mailinator.com/
   // To be able to verify that the email has gone to the correct user.
   .navigateTo(MAILINATOR)
