@@ -1,22 +1,33 @@
-import { Selector, getTime } from 'testcafe';
+import { Selector, getTime , ClientFunction} from 'testcafe';
+import config from './config';
+import Page from '../genericFuncitons/page-model';
+
 
 fixture `init test Global Challenge Foundation Submission`
-    .page (`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
-    .beforeEach(async t => {
-        await t
-        .expect(REGISTER_BUTTON.visible).ok()
-        .expect(Selector('#accept-button').exists).ok()
-        .click(Selector('#accept-button'))
-    })
+.page `${config.baseUrl}/en/submission-platform/sign-in`
+
+
+
+.beforeEach(async t => {
+  await t
+  .expect(REGISTER_BUTTON.visible).ok()
+  .expect(Selector('#accept-button').exists).ok()
+  .click(Selector('#accept-button'))
+})
+
+const debug = ClientFunction(() => {
+    debugger;
+    });
+
 function randMs(){
   const d = new Date();
   var randomMsec = d.getTime();
   return randomMsec;
 }
 
-const PREFIX = 'GCF' + randMs()
+const page = new Page();
+const PREFIX = 'GCF' + randMs();
 const EMAIL =  PREFIX + "@mailinator.com";
-console.log(PREFIX);
 const PWD = "Testtest1";
 const ORG = "B-doom";
 const REGISTER_CONTAINER = Selector('.app-col-left');
@@ -24,7 +35,7 @@ const REGISTER_BUTTON = Selector('.gcf-btn-blue').nth(0);
 const LOGOUT_BUTTON = Selector('.ion-android-exit');
 const FIRSTNAME = "Xenon";
 const LASTNAME = "Savie";
-const TITLE = "Meh";
+const ARTICLE_TITLE = "Meh";
 const NATIONALITY = "Swedish";
 const JOBTITLE = "Swash Buckler"
 const GENDER = "Female"
@@ -39,103 +50,120 @@ var selectCountryResidence = Selector('#countryResidence').filter('#countryResid
 var selectEducationLevel = Selector('#educationLevel').filter('#educationLevel');
 var selectReferrer = Selector('#referrer').filter('#referrer');
 var selectGender = Selector('#gender').filter('#gender');
+var jsonfile = require('jsonfile')
+var file = '../../../data/data.json'
+var obj = {email: EMAIL}
 
+jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
+  console.error(err)
+})
 
-
-test('GCF Register Person test', async t => {
+test('Navigate to GCF Register Person test', async t => {
   // LOGIN  navigation
   await t
+  // This is to create a mail box at https://www.mailinator.com/
+  // To be able to verify that the email has gone to the correct user.
+  .navigateTo(MAILINATOR)
+  .wait(500)
+  .expect(Selector('#publicinboxfield').exists).ok()
+  .wait(500)
 
-    // This is to create a mail box at https://www.mailinator.com/
-    // To be able to verify that the email has gone to the correct user.
-    .navigateTo(MAILINATOR)
-    .wait(500)
-    .expect(Selector('#publicinboxfield').exists).ok()
-    .wait(500)
+  //Navigate back to GCF
+  .navigateTo(`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
+  .expect(Selector('body').exists).ok()
+  .wait(500)
 
-    //Navigate back to GCF
-    .navigateTo(`https://gcf-beta.koslun.com/en/submission-platform/sign-in`)
-    .expect(Selector('body').exists).ok()
-    .wait(500)
-    .click(REGISTER_BUTTON)
+  .click(REGISTER_BUTTON)
 
-// Text and dropdown validation
-    .expect(Selector('#firstname').exists).ok()
-    .typeText(('input[id=firstname]'), FIRSTNAME)
+  // Text inserts in profile/register
+  .expect(Selector(page.firstname).exists).ok()
+  .typeText( page.firstname, FIRSTNAME)
 
-    .expect(Selector('#lastname').exists).ok()
-    .typeText(('input[id=lastname]'), LASTNAME)
+  .expect(Selector(page.lastname).exists).ok()
+  .typeText(page.lastname, LASTNAME)
 
-    .expect(Selector('#organisation').exists).ok()
-    .typeText(('input[id=organisation]'), ORG)
+  .expect(Selector(page.organisation).exists).ok()
+  .typeText(page.organisation, ORG)
 
-    .expect(Selector('#email').exists).ok()
-    .typeText(('input[id=email'), EMAIL)
+  .expect(Selector(page.email).exists).ok()
+  .typeText(page.email, EMAIL)
 
-    .expect(Selector('#password').exists).ok()
-    .typeText(('input[id=password]'), PWD)
+  .expect(Selector(page.password).exists).ok()
+  .typeText(page.password, PWD)
 
-    .expect(Selector('#repeatPassword').exists).ok()
-    .typeText(('input[id=repeatPassword]'), PWD)
+  .expect(Selector(page.repeatPassword).exists).ok()
+  .typeText(page.repeatPassword, PWD)
 
-    .expect(Selector('#title').exists).ok()
-    .typeText(('input[id=title]'), TITLE)
+  .expect(Selector(page.title).exists).ok()
+  .typeText(page.title, ARTICLE_TITLE)
 
-    .expect(Selector('#nationality').exists).ok()
-    .typeText(('input[id=nationality]'), NATIONALITY)
+  .expect(Selector(page.nationality).exists).ok()
+  .typeText(page.nationality, NATIONALITY)
 
-    .expect(Selector('#age').exists).ok()
-    .click(selectAge)
-    .click(Selector('option:nth-child(6)'))
+//Dropdown menues
+  .expect(Selector('#age').exists).ok()
+  .click(selectAge)
+  .click(Selector('option:nth-child(6)'))
 
-    .expect(Selector('#gender').exists).ok()
-    .click(selectGender)
-    .click(Selector('option').filter('[value="female"]'))
+  .expect(Selector('#gender').exists).ok()
+  .click(selectGender)
+  .click(Selector('option').filter('[value="female"]'))
 
-    .expect(Selector('#countryResidence').exists).ok()
-    .click(selectCountryResidence)
-    .click(Selector('option').filter('[value="SE"]'))
+  .expect(Selector('#countryResidence').exists).ok()
+  .click(selectCountryResidence)
+  .click(Selector('option').filter('[value="SE"]'))
 
-    .expect(Selector('#educationLevel').exists).ok()
-    .click(selectEducationLevel)
-    .click(Selector('option').filter('[value="Doctoral degree"]'))
+  .expect(Selector('#educationLevel').exists).ok()
+  .click(selectEducationLevel)
+  .click(Selector('option').filter('[value="Doctoral degree"]'))
 
-    .expect(Selector('#jobTitle').exists).ok()
-    .typeText(('input[id=jobTitle]'), JOBTITLE)
+  .expect(Selector('#jobTitle').exists).ok()
+  .typeText(('input[id=jobTitle]'), JOBTITLE)
+
+
+  .expect(Selector('#referrer').exists).ok()
+  .click(selectReferrer)
+  .click(Selector('option').filter('[value="blog"]'))
+
+//await debug();
+// for (const checkboxFeature of page.featureList) {
+// await t
+//       .expect(checkboxFeature.label.exists).ok()
+//       .click(checkboxFeature.label)
+//       .expect(checkboxFeature.checkbox.checked).ok()
+//   }
 
 //  Check Boxes validation
-    .expect(Selector('#referrer').exists).ok()
-    .click(selectReferrer)
-    .click(Selector('option').filter('[value="blog"]'))
+.expect(Selector('#newsletter').exists).ok()
+.click('#newsletter')
+.expect('#newsletter.ccheckbox.hecked').ok()
 
-    .expect(Selector('#newsletter').exists).ok()
-    .click('#newsletter')
-    .expect('#newsletter.checked').ok()
+.expect(Selector('#terms').exists).ok()
+.click('#terms')
+.expect('#terms.checkbox.checked').ok()
 
-    .expect(Selector('#terms').exists).ok()
-    .click('#terms')
-    .expect('#terms.checked').ok()
+.expect(Selector('#contact').exists).ok()
+.click('#contact')
+.expect('#contact.checkbox.checked').ok()
 
-    .expect(Selector('#contact').exists).ok()
-    .click('#contact')
-    .expect('#contact.checked').ok()
+.expect(Selector('#statistics').exists).ok()
+.click('#statistics')
+.expect('#statistics.checkbox.checked').ok()
 
-    .expect(Selector('#statistics').exists).ok()
-    .click('#statistics')
-    .expect('#statistics.checked').ok()
+.expect(Selector('#late-registration').exists).ok()
+.click('#late-registration')
+.expect('#late-registration.checkbox.checked').ok()
 
-    .expect(Selector('#late-registration').exists).ok()
-    .click('#late-registration')
-    .expect('#late-registration.checked').ok()
+
+
 
 //  Save Btn validation
-    .click('#register-btn')
+  await t
+  .click('#register-btn')
+  .wait(500)
+  .expect(Selector('.gcf-btn-blue').exists).ok()
+  .expect(Selector('.popup-text').withText('Please go to your e-mail inbox to confirm your e-mail').exists).ok()
+  .click('.gcf-btn-blue')
 
-    .wait(500)
-
-    .expect(Selector('.gcf-btn-blue').exists).ok()
-    .expect(Selector('.popup-text').withText('Please go to your e-mail inbox to confirm your e-mail').exists).ok()
-    .click('.gcf-btn-blue')
-
-    .wait(500)
-  });
+  .wait(500)
+});
