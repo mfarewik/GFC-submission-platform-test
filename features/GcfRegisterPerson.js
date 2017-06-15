@@ -50,6 +50,7 @@ var selectCountryResidence = Selector('#countryResidence').filter('#countryResid
 var selectEducationLevel = Selector('#educationLevel').filter('#educationLevel');
 var selectReferrer = Selector('#referrer').filter('#referrer');
 var selectGender = Selector('#gender').filter('#gender');
+
 var jsonfile = require('jsonfile')
 var file = '../../../data/data.json'
 var obj = {email: EMAIL}
@@ -105,9 +106,9 @@ test('Navigate to GCF Register Person test', async t => {
   .click(selectAge)
   .click(Selector('option:nth-child(6)'))
 
-  .expect(Selector('#gender').exists).ok()
-  .click(selectGender)
-  .click(Selector('option').filter('[value="female"]'))
+  // .expect(Selector('#gender').exists).ok()
+  // .click(selectGender)
+  // .click(Selector('option').filter('[value="female"]'))
 
   .expect(Selector('#countryResidence').exists).ok()
   .click(selectCountryResidence)
@@ -125,17 +126,16 @@ test('Navigate to GCF Register Person test', async t => {
   .click(selectReferrer)
   .click(Selector('option').filter('[value="blog"]'))
 
-// for (const optionInputFeature of page.optionInputFeatureList){
-//   await t
-//   .expect(optionInputFeature.label.exist).ok()
-//   .click(optionInputFeature.label)
-//   .click(optionInputFeature.option)
-// }
-
 await debug();
+for (const optionInputFeature of page.optionInputFeatureList){
+  await t
+  .expect(optionInputFeature.label.exist).ok()
+  .click(optionInputFeature.label)
+  .click(optionInputFeature.option)
+}
 
 for (const checkboxFeature of page.chekboxFeatureList) {
-await t
+  await t
       .expect(checkboxFeature.label.exists).ok()
 // NOTE: we need to add offset because otherwise we can click links
       .click(checkboxFeature.label, { offsetX: 0 })
