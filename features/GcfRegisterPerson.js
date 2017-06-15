@@ -60,7 +60,7 @@ jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
 
 test('Navigate to GCF Register Person test', async t => {
   // LOGIN  navigation
-  await t
+  await t.wait(10000)
   // This is to create a mail box at https://www.mailinator.com/
   // To be able to verify that the email has gone to the correct user.
   .navigateTo(MAILINATOR)
@@ -125,34 +125,43 @@ test('Navigate to GCF Register Person test', async t => {
   .click(selectReferrer)
   .click(Selector('option').filter('[value="blog"]'))
 
-//await debug();
-// for (const checkboxFeature of page.featureList) {
-// await t
-//       .expect(checkboxFeature.label.exists).ok()
-//       .click(checkboxFeature.label)
-//       .expect(checkboxFeature.checkbox.checked).ok()
-//   }
+// for (const optionInputFeature of page.optionInputFeatureList){
+//   await t
+//   .expect(optionInputFeature.label.exist).ok()
+//   .click(optionInputFeature.label)
+//   .click(optionInputFeature.option)
+// }
+
+await debug();
+
+for (const checkboxFeature of page.chekboxFeatureList) {
+await t
+      .expect(checkboxFeature.label.exists).ok()
+// NOTE: we need to add offset because otherwise we can click links
+      .click(checkboxFeature.label, { offsetX: 0 })
+      .expect(checkboxFeature.checkbox.checked).ok()
+  }
 
 //  Check Boxes validation
-.expect(Selector('#newsletter').exists).ok()
-.click('#newsletter')
-.expect('#newsletter.ccheckbox.hecked').ok()
-
-.expect(Selector('#terms').exists).ok()
-.click('#terms')
-.expect('#terms.checkbox.checked').ok()
-
-.expect(Selector('#contact').exists).ok()
-.click('#contact')
-.expect('#contact.checkbox.checked').ok()
-
-.expect(Selector('#statistics').exists).ok()
-.click('#statistics')
-.expect('#statistics.checkbox.checked').ok()
-
-.expect(Selector('#late-registration').exists).ok()
-.click('#late-registration')
-.expect('#late-registration.checkbox.checked').ok()
+// .expect(Selector('#newsletter').exists).ok()
+// .click('#newsletter')
+// .expect('#newsletter.ccheckbox.checked').ok()
+//
+// .expect(Selector('#terms').exists).ok()
+// .click('#terms')
+// .expect('#terms.checkbox.checked').ok()
+//
+// .expect(Selector('#contact').exists).ok()
+// .click('#contact')
+// .expect('#contact.checkbox.checked').ok()
+//
+// .expect(Selector('#statistics').exists).ok()
+// .click('#statistics')
+// .expect('#statistics.checkbox.checked').ok()
+//
+// .expect(Selector('#late-registration').exists).ok()
+// .click('#late-registration')
+// .expect('#late-registration.checkbox.checked').ok()
 
 
 
