@@ -110,6 +110,7 @@ test('Navigate to GCF Register Person test', async t => {
   // .click(selectGender)
   // .click(Selector('option').filter('[value="female"]'))
 
+
   .expect(Selector('#countryResidence').exists).ok()
   .click(selectCountryResidence)
   .click(Selector('option').filter('[value="SE"]'))
@@ -126,21 +127,22 @@ test('Navigate to GCF Register Person test', async t => {
   .click(selectReferrer)
   .click(Selector('option').filter('[value="blog"]'))
 
-await debug();
-for (const optionInputFeature of page.optionInputFeatureList){
-  await t
-  .expect(optionInputFeature.label.exist).ok()
-  .click(optionInputFeature.label)
-  .click(optionInputFeature.option)
-}
+  for (const checkboxFeature of page.chekboxFeatureList) {
+    await t
+        .expect(checkboxFeature.label.exists).ok()
+  // NOTE: we need to add offset because otherwise we can click links
+        .click(checkboxFeature.label, { offsetX: 0 })
+        .expect(checkboxFeature.checkbox.checked).ok()
+    }
 
-for (const checkboxFeature of page.chekboxFeatureList) {
-  await t
-      .expect(checkboxFeature.label.exists).ok()
-// NOTE: we need to add offset because otherwise we can click links
-      .click(checkboxFeature.label, { offsetX: 0 })
-      .expect(checkboxFeature.checkbox.checked).ok()
+  for (const optionInputFeature of page.optionInputFeatureList){
+    await t
+    .expect(optionInputFeature.label.exist).ok()
+    .click(optionInputFeature.option1)
+    .click(optionInputFeature.option2)
   }
+
+
 
 //  Check Boxes validation
 // .expect(Selector('#newsletter').exists).ok()
