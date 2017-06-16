@@ -3,12 +3,16 @@ import { Selector } from 'testcafe';
 
 const label = Selector('label');
 
-// class optionInputFeature {
-//     constructor (inputId, value) {
-//       this.label = Selector('label').withAttribute('for', inputId);
-//       this.option = Selector('#' + inputId).filter(value);
-//     }
-// }
+class optionInputFeature {
+    constructor (inputId, value) {
+      this.label = Selector('label').withAttribute('for', inputId);
+//      var selectGender = Selector('#gender').filter('#gender');
+//Open Dropdown
+      this.option1 = Selector('#' + inputId).filter('#' + inputId);
+//Choose value for Dropdown
+      this.option2 = Selector('#' + inputId).filter(value);
+    }
+}
 
 class checkboxFeature {
     constructor (inputId) {
@@ -17,7 +21,7 @@ class checkboxFeature {
     }
 }
 
-export default class {
+export default class Page{
   constructor(){
       this.firstname      = Selector('#firstname');
       this.lastname       = Selector('#lastname');
@@ -38,8 +42,9 @@ export default class {
         new checkboxFeature('statistics'),
         new checkboxFeature('late-registration')
     ];
-    // this.optionInputFeatureList = [
-    //     new optionInputFeature('referrer', 'blog')
-    // ]
+
+    this.optionInputFeatureList = [
+        new optionInputFeature('gender', '[value="female"]')
+    ];
   }
 }
