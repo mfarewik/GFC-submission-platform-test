@@ -3,12 +3,12 @@ import { Selector } from 'testcafe';
 
 const label = Selector('label');
 
+//Open Dropdown
+//Choose value for Dropdown
 class optionInputFeature {
     constructor (inputId, value) {
-      this.label = Selector('label').withAttribute('for', inputId);
-//Open Dropdown
+//      this.label = Selector('label').withAttribute('for', inputId);
       this.option1 = Selector('#' + inputId).filter('#' + inputId);
-//Choose value for Dropdown
       this.option2 = Selector('option').filter(value);
     }
 }
