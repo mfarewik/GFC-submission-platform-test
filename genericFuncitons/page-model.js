@@ -3,12 +3,15 @@ import { Selector } from 'testcafe';
 
 const label = Selector('label');
 
-// class optionInputFeature {
-//     constructor (inputId, value) {
-//       this.label = Selector('label').withAttribute('for', inputId);
-//       this.option = Selector('#' + inputId).filter(value);
-//     }
-// }
+//Open Dropdown
+//Choose value for Dropdown
+class optionInputFeature {
+    constructor (inputId, value) {
+//      this.label = Selector('label').withAttribute('for', inputId);
+      this.option1 = Selector('#' + inputId).filter('#' + inputId);
+      this.option2 = Selector('option').filter(value);
+    }
+}
 
 class checkboxFeature {
     constructor (inputId) {
@@ -17,7 +20,7 @@ class checkboxFeature {
     }
 }
 
-export default class {
+export default class Page{
   constructor(){
       this.firstname      = Selector('#firstname');
       this.lastname       = Selector('#lastname');
@@ -38,8 +41,16 @@ export default class {
         new checkboxFeature('statistics'),
         new checkboxFeature('late-registration')
     ];
-    // this.optionInputFeatureList = [
-    //     new optionInputFeature('referrer', 'blog')
-    // ]
+
+    this.optionInputFeatureList = [
+        new optionInputFeature('age', 'option:nth-child(6)'),
+        new optionInputFeature('gender', '[value = female]'),
+        new optionInputFeature('countryResidence', '[value="SE"]'),
+        new optionInputFeature('educationLevel', '[value="Doctoral degree"]'),
+        new optionInputFeature('referrer', '[value="blog"]')
+
+
+    ];
+      this.jobTitle     = Selector('#jobTitle');
   }
 }
