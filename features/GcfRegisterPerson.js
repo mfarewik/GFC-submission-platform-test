@@ -61,7 +61,7 @@ jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
 
 test('Navigate to GCF Register Person test', async t => {
   // LOGIN  navigation
-  await t.wait(10000)
+  await t.wait(20000)
   // This is to create a mail box at https://www.mailinator.com/
   // To be able to verify that the email has gone to the correct user.
   .navigateTo(MAILINATOR)
@@ -102,49 +102,26 @@ test('Navigate to GCF Register Person test', async t => {
   .typeText(page.nationality, NATIONALITY)
 
 //Dropdown menues
-  // .expect(Selector('#age').exists).ok()
-  // .click(selectAge)
-  // .click(Selector('option:nth-child(6)'))
 
-  // .expect(Selector('#gender').exists).ok()
-  // .click(Selector('#gender').filter('#gender'))
-  // .click(Selector('option').filter('[value="female"]'))
-
-
-  // .expect(Selector('#countryResidence').exists).ok()
-  // .click(selectCountryResidence)
-  // .click(Selector('option').filter('[value="SE"]'))
-
-  // .expect(Selector('#educationLevel').exists).ok()
-  // .click(selectEducationLevel)
-  // .click(Selector('option').filter('[value="Doctoral degree"]'))
 
   .expect(Selector(page.jobTitle).exists).ok()
   .typeText(page.jobTitle, JOBTITLE)
-  // .expect(Selector('#jobTitle').exists).ok()
-  // .typeText(('input[id=jobTitle]'), JOBTITLE)
 
-
-  // .expect(Selector('#referrer').exists).ok()
-  // .click(selectReferrer)
-  // .click(Selector('option').filter('[value="blog"]'))
-
-  for (const checkboxFeature of page.chekboxFeatureList) {
-    await t
-        .expect(checkboxFeature.label.exists).ok()
-  // NOTE: we need to add offset because otherwise we can click links
-        .click(checkboxFeature.label, { offsetX: 0 })
-        .expect(checkboxFeature.checkbox.checked).ok()
-    }
 
   for (const optionInputFeature of page.optionInputFeatureList){
-    await t
-//    .expect(optionInputFeature.label.exist).ok()
-    .click(optionInputFeature.option1)
-    .click(optionInputFeature.option2)
+    await t.wait(10000)
+      .expect(optionInputFeature.label.exist).ok()
+      .click(optionInputFeature.option1)
+      .click(optionInputFeature.option2)
   }
 
-
+  for (const checkboxFeature of page.chekboxFeatureList) {
+    await t.wait(10000)
+      .expect(checkboxFeature.label.exists).ok()
+  // NOTE: we need to add offset because otherwise we can click links
+      .click(checkboxFeature.label, { offsetX: 0 })
+      .expect(checkboxFeature.checkbox.checked).ok()
+    }
 
 //  Check Boxes validation
 // .expect(Selector('#newsletter').exists).ok()
