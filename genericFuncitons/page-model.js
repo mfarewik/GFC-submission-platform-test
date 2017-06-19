@@ -6,11 +6,10 @@ const label = Selector('label');
 class optionInputFeature {
     constructor (inputId, value) {
       this.label = Selector('label').withAttribute('for', inputId);
-//      var selectGender = Selector('#gender').filter('#gender');
 //Open Dropdown
       this.option1 = Selector('#' + inputId).filter('#' + inputId);
 //Choose value for Dropdown
-      this.option2 = Selector('#' + inputId).filter(value);
+      this.option2 = Selector('option').filter(value);
     }
 }
 
@@ -44,7 +43,14 @@ export default class Page{
     ];
 
     this.optionInputFeatureList = [
-        new optionInputFeature('gender', '[value="female"]')
+        new optionInputFeature('age', 'option:nth-child(6)'),
+        new optionInputFeature('gender', '[value = female]'),
+        new optionInputFeature('countryResidence', '[value="SE"]'),
+        new optionInputFeature('educationLevel', '[value="Doctoral degree"]'),
+        new optionInputFeature('referrer', '[value="blog"]')
+
+
     ];
+      this.jobTitle     = Selector('#jobTitle');
   }
 }
