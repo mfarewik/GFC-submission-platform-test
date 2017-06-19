@@ -102,30 +102,32 @@ test('Navigate to GCF Register Person test', async t => {
   .typeText(page.nationality, NATIONALITY)
 
 //Dropdown menues
-  .expect(Selector('#age').exists).ok()
-  .click(selectAge)
-  .click(Selector('option:nth-child(6)'))
+  // .expect(Selector('#age').exists).ok()
+  // .click(selectAge)
+  // .click(Selector('option:nth-child(6)'))
 
   // .expect(Selector('#gender').exists).ok()
-  // .click(selectGender)
+  // .click(Selector('#gender').filter('#gender'))
   // .click(Selector('option').filter('[value="female"]'))
 
 
-  .expect(Selector('#countryResidence').exists).ok()
-  .click(selectCountryResidence)
-  .click(Selector('option').filter('[value="SE"]'))
+  // .expect(Selector('#countryResidence').exists).ok()
+  // .click(selectCountryResidence)
+  // .click(Selector('option').filter('[value="SE"]'))
 
-  .expect(Selector('#educationLevel').exists).ok()
-  .click(selectEducationLevel)
-  .click(Selector('option').filter('[value="Doctoral degree"]'))
+  // .expect(Selector('#educationLevel').exists).ok()
+  // .click(selectEducationLevel)
+  // .click(Selector('option').filter('[value="Doctoral degree"]'))
 
-  .expect(Selector('#jobTitle').exists).ok()
-  .typeText(('input[id=jobTitle]'), JOBTITLE)
+  .expect(Selector(page.jobTitle).exists).ok()
+  .typeText(page.jobTitle, JOBTITLE)
+  // .expect(Selector('#jobTitle').exists).ok()
+  // .typeText(('input[id=jobTitle]'), JOBTITLE)
 
 
-  .expect(Selector('#referrer').exists).ok()
-  .click(selectReferrer)
-  .click(Selector('option').filter('[value="blog"]'))
+  // .expect(Selector('#referrer').exists).ok()
+  // .click(selectReferrer)
+  // .click(Selector('option').filter('[value="blog"]'))
 
   for (const checkboxFeature of page.chekboxFeatureList) {
     await t
@@ -137,7 +139,7 @@ test('Navigate to GCF Register Person test', async t => {
 
   for (const optionInputFeature of page.optionInputFeatureList){
     await t
-    .expect(optionInputFeature.label.exist).ok()
+//    .expect(optionInputFeature.label.exist).ok()
     .click(optionInputFeature.option1)
     .click(optionInputFeature.option2)
   }
