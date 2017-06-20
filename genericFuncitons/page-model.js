@@ -1,9 +1,20 @@
 // PAGE MODEL
 import { Selector } from 'testcafe';
 
-//const REGISTER_BUTTON = Selector('.gcf-btn-blue').nth(0);
 const label = Selector('label');
 const div = Selector('div');
+
+// This is to create a mail box at https://www.mailinator.com/
+// To be able to verify that the email has gone to the correct user.
+//const MAILINATOR = 'https://www.mailinator.com/inbox2.jsp?to=' + PREFIX + '#/#public_maildirdiv';
+//class createUserInMailinator{
+// constructor (){
+// .navigateTo(MAILINATOR)
+// .wait(500)
+// .expect(Selector('#publicinboxfield').exists).ok()
+// .wait(500)
+// }
+//}
 
 //Open Dropdown
 //Choose value for Dropdown
@@ -25,8 +36,10 @@ class checkboxFeature {
 class acceptCookieFeature {
     constructor (inputId) {
       this.acceptCookieId = Selector('#' + inputId);
+      this.readmoreCookieId = Selector('#' + inputId);
+      this.acceptCookiePopup  = Selector('.' + inputId);
       this.acceptCookieClass = Selector('.' + inputId);
-      this.acceptCookieDiv  = Selector('div').withAttribute('for', inputId);
+
     }
 }
 
@@ -63,7 +76,7 @@ export default class Page{
     ];
 
     this.acceptCookieFeatureList = [
-        new acceptCookieFeature('accept-button'),
+        new acceptCookieFeature('read-more'),
         new acceptCookieFeature('read-more'),
         new acceptCookieFeature('popup-title'),
         new acceptCookieFeature('gcf-btn-blue'),
