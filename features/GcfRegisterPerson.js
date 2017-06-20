@@ -61,7 +61,7 @@ jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
 
 test('Navigate to GCF Register Person test', async t => {
   // LOGIN  navigation
-  await t.wait(20000)
+  await t.wait(10000)
   // This is to create a mail box at https://www.mailinator.com/
   // To be able to verify that the email has gone to the correct user.
   .navigateTo(MAILINATOR)
@@ -103,20 +103,19 @@ test('Navigate to GCF Register Person test', async t => {
 
 //Dropdown menues
 
-
   .expect(Selector(page.jobTitle).exists).ok()
   .typeText(page.jobTitle, JOBTITLE)
 
 
   for (const optionInputFeature of page.optionInputFeatureList){
-    await t.wait(10000)
-      .expect(optionInputFeature.label.exist).ok()
+    await t
+      .expect(optionInputFeature.label.exists).ok()
       .click(optionInputFeature.option1)
       .click(optionInputFeature.option2)
   }
 
   for (const checkboxFeature of page.chekboxFeatureList) {
-    await t.wait(10000)
+    await t
       .expect(checkboxFeature.label.exists).ok()
   // NOTE: we need to add offset because otherwise we can click links
       .click(checkboxFeature.label, { offsetX: 0 })
@@ -143,14 +142,9 @@ test('Navigate to GCF Register Person test', async t => {
 // .expect(Selector('#late-registration').exists).ok()
 // .click('#late-registration')
 // .expect('#late-registration.checkbox.checked').ok()
-
-
-
-
 //  Save Btn validation
   await t
   .click('#register-btn')
-  .wait(500)
   .expect(Selector('.gcf-btn-blue').exists).ok()
   .expect(Selector('.popup-text').withText('Please go to your e-mail inbox to confirm your e-mail').exists).ok()
   .click('.gcf-btn-blue')
