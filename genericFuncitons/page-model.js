@@ -7,14 +7,15 @@ const div = Selector('div');
 // This is to create a mail box at https://www.mailinator.com/
 // To be able to verify that the email has gone to the correct user.
 //const MAILINATOR = 'https://www.mailinator.com/inbox2.jsp?to=' + PREFIX + '#/#public_maildirdiv';
-//class createUserInMailinator{
-// constructor (){
-// .navigateTo(MAILINATOR)
-// .wait(500)
-// .expect(Selector('#publicinboxfield').exists).ok()
-// .wait(500)
+
+// class createUserInMailinator{
+//   constructor (){
+//     .navigateTo(MAILINATOR)
+//     .wait(500)
+//     .expect(Selector('#publicinboxfield').exists).ok()
+//     .wait(500)
+//   }
 // }
-//}
 
 //Open Dropdown
 //Choose value for Dropdown
@@ -35,12 +36,18 @@ class checkboxFeature {
 
 class acceptCookieFeature {
     constructor (inputId) {
+      this.div = Selector('div').withAttribute('for', inputId);
       this.acceptCookieId = Selector('#' + inputId);
-      this.readmoreCookieId = Selector('#' + inputId);
-      this.acceptCookiePopup  = Selector('.' + inputId);
       this.acceptCookieClass = Selector('.' + inputId);
 
     }
+}
+
+  class closeCookieFeature{
+    constructor (inputId) {
+      this.label = Selector('#' + inputId);
+    }
+
 }
 
 
@@ -55,10 +62,10 @@ export default class Page{
       this.repeatPassword = Selector('#repeatPassword');
       this.title          = Selector('#title');
       this.nationality    = Selector('#nationality');
+      this.jobTitle       = Selector('#jobTitle');
+      this.newTag         = Selector('#newTag');
 
-      //Malinator
-      this.publicinboxfield = Selector('#publicinboxfield');
-
+//Checkbox on the registration page
       this.chekboxFeatureList = [
         new checkboxFeature('newsletter'),
         new checkboxFeature('terms'),
@@ -67,16 +74,19 @@ export default class Page{
         new checkboxFeature('late-registration')
     ];
 
+//Drop down menu on registration page
     this.optionInputFeatureList = [
         new optionInputFeature('age', 'option:nth-child(6)'),
         new optionInputFeature('gender', '[value = female]'),
         new optionInputFeature('countryResidence', '[value="SE"]'),
         new optionInputFeature('educationLevel', '[value="Doctoral degree"]'),
         new optionInputFeature('referrer', '[value="blog"]')
+
     ];
 
+
     this.acceptCookieFeatureList = [
-        new acceptCookieFeature('read-more'),
+        new acceptCookieFeature('cookie-disclaimer'),
         new acceptCookieFeature('read-more'),
         new acceptCookieFeature('popup-title'),
         new acceptCookieFeature('gcf-btn-blue'),
@@ -84,6 +94,15 @@ export default class Page{
         new acceptCookieFeature('accept-button')
     ];
 
-      this.jobTitle     = Selector('#jobTitle');
+  // Close the cookie accept button
+    this.closeCookie = [
+        new closeCookieFeature('accept-button')
+    ];
+
+    this.entryDropdownList = [
+      new optionInputFeature('language', '[value="en"]')
+    ]
+
+
   }
 }
