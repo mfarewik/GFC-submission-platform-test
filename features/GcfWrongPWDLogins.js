@@ -5,8 +5,10 @@ import Page from '../genericFuncitons/page-model';
 
 fixture `init test Global Challenge Foundation Submission`
 .page `${config.baseUrl}/en/submission-platform/sign-in`
+
   .beforeEach(async t => {
     await t
+    .expect(REGISTER_BUTTON.visible).ok()
       for (const closeCookieFeature of page.closeCookie){
         await t
           .expect(closeCookieFeature.label.exists).ok()
@@ -18,6 +20,7 @@ fixture `init test Global Challenge Foundation Submission`
 const page = new Page();
 const email = "m8r-qkyx87@mailinator.com";
 const password = "WRONGPWD";
+const REGISTER_BUTTON = Selector('.gcf-btn-blue').nth(0);
 const LOGIN_CONTAINER = Selector('.app-col-right');
 const LOGIN_BUTTON = Selector('.gcf-btn-blue').nth(1);
 const LOGOUT_BUTTON = Selector('a.i.ion-android-exit');
