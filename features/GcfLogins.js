@@ -2,6 +2,7 @@ import { Selector, ClientFunction, getTime  } from 'testcafe';
 import config from './config';
 import Page from '../genericFuncitons/page-model';
 
+const page = new Page();
 const email = "m8r-qkyx87@mailinator.com";
 const password = "Testtest1";
 const LOGIN_CONTAINER = Selector('.app-col-right');
@@ -15,16 +16,23 @@ fixture `init test Global Challenge Foundation Submission`
     .beforeEach(async t => {
         await t.wait(20000)
         .expect(REGISTER_BUTTON.visible).ok()
-        .expect(Selector('#accept-button').exists).ok()
-        .click(Selector('#accept-button'))
-    .wait(1000)
+        .expect(Selector('body').exists).ok()
 
+        // Close the cookie accept button
+        for (const closeCookieFeature of page.closeCookie){
+          await t
+            .expect(closeCookieFeature.label.exists).ok()
+            .click(closeCookieFeature.label)
+          }
     })
+
+
 
   // LOGIN  navigation
 test('GCF LOGIN/LOGOUT Test', async t => {
+
+
   await t
-  .expect(Selector('body').exists).ok()
   .expect(LOGIN_BUTTON.visible).ok()
   .expect(LOGIN_CONTAINER.find(' input[type="email"]').exists).ok()
   .typeText(LOGIN_CONTAINER.find('input[type="email"]'), email)

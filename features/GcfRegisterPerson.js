@@ -1,3 +1,5 @@
+// GcfRegiterPerson.js
+// verify that the input and send of Register a user works
 import { Selector, getTime , ClientFunction} from 'testcafe';
 import config from './config';
 import Page from '../genericFuncitons/page-model';
@@ -6,13 +8,15 @@ import Page from '../genericFuncitons/page-model';
 fixture `init test Global Challenge Foundation Submission`
 .page `${config.baseUrl}/en/submission-platform/sign-in`
 
-
-
 .beforeEach(async t => {
   await t
   .expect(REGISTER_BUTTON.visible).ok()
-  .expect(Selector('#accept-button').exists).ok()
-  .click(Selector('#accept-button'))
+  // Close the cookie accept button
+  for (const closeCookieFeature of page.closeCookie){
+    await t
+      .expect(closeCookieFeature.label.exists).ok()
+      .click(closeCookieFeature.label)
+    }
 })
 
 const debug = ClientFunction(() => {
