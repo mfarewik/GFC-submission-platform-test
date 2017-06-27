@@ -3,6 +3,7 @@
 import { Selector, getTime , ClientFunction} from 'testcafe';
 import config from './config';
 import Page from '../genericFuncitons/page-model';
+import Helpers from '../genericFuncitons/helpers'
 
 
 fixture `init test Global Challenge Foundation Submission`
@@ -83,6 +84,11 @@ test('GCF Register Entry Test', async t => {
   .click(page.entryDesktopStep1)
   .expect(Selector('div.gcf-text').withText('Authors').exists).ok()
 
+//Add Authors
+
+
+
+//Fillout Form
 
 
 
