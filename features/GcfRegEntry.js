@@ -3,6 +3,7 @@
 import { Selector, getTime , ClientFunction} from 'testcafe';
 import config from './config';
 import Page from '../genericFuncitons/page-model';
+import Helpers from '../genericFuncitons/helpers'
 
 
 fixture `init test Global Challenge Foundation Submission`
@@ -30,6 +31,7 @@ const LOGIN_CONTAINER = Selector('.app-col-right');
 const LOGIN_BUTTON = Selector('.gcf-btn-blue').nth(1);
 const LOGOUT_BUTTON = Selector('a.i.ion-android-exit');
 const REGISTER_BUTTON = Selector('.gcf-btn-blue').nth(0);
+const NEXTSTEP_BUTTON = Selector('.gcf-btn-blue').nth(2);
 
 test('GCF Register Entry Test', async t => {
 
@@ -47,6 +49,7 @@ test('GCF Register Entry Test', async t => {
   .expect(Selector('.gcf-text').withText('Entries').exists).ok()
 
 //Execute entry tc
+//TAB GENERAL INFORMATION
   .expect(Selector('.gcf-btn-blue').withText('ADD ENTRY').exists).ok()
   .click(Selector('.gcf-btn-blue').withText('ADD ENTRY'))
 
@@ -66,11 +69,33 @@ test('GCF Register Entry Test', async t => {
 
   .expect(Selector(page.newTag).exists).ok()
   .typeText( page.newTag, ARTICLE_TAG)
+  .pressKey('enter')
+  .wait(5000)
 
-  //LOGOUT navigation
+
+//TAB General information/Authors/Proposal/Review & Submit
+  .expect(Selector('div.gcf-text').withText('Authors').exists).ok()
+  .click(page.entryDesktopStep2)
+  .expect(Selector('div.os').withText('1. Abstract').exists).ok()
+  .click(page.entryDesktopStep3)
+  .expect(Selector('div.gcf-text').withText('Proposal').exists).ok()
+  .click(page.entryDesktopStep0)
+  .expect(Selector('div.os').withText('General information').exists).ok()
+  .click(page.entryDesktopStep1)
+  .expect(Selector('div.gcf-text').withText('Authors').exists).ok()
+
+//Add Authors
+
+
+
+//Fillout Form
+
+
+
+//LOGOUT navigation
 
     .expect(Selector('div.gcf-title').exists).ok()
-    .wait(500)
+    .wait(5000)
     .click(Selector('.ion-android-exit'))
 
   });

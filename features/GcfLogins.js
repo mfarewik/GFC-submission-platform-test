@@ -36,7 +36,7 @@ test('GCF LOGIN/LOGOUT Test', async t => {
   .expect(LOGIN_BUTTON.visible).ok()
   .expect(LOGIN_CONTAINER.find(' input[type="email"]').exists).ok()
   .typeText(LOGIN_CONTAINER.find('input[type="email"]'), email)
-  .expect(LOGIN_CONTAINER.find(' input[type="password"]').exists).ok()
+  .expect(LOGIN_CONTAINER.find('input[type="password"]').exists).ok()
   .typeText(LOGIN_CONTAINER.find(' input[type="password"]'), password)
 
 
