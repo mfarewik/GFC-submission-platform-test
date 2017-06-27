@@ -72,9 +72,16 @@ test('GCF Register Entry Test', async t => {
   .wait(5000)
 
 
-//TAB AUTHORS
+//TAB General information/Authors/Proposal/Review & Submit
   .expect(Selector('div.gcf-text').withText('Authors').exists).ok()
   .click(page.entryDesktopStep2)
+  .expect(Selector('div.os').withText('1. Abstract').exists).ok()
+  .click(page.entryDesktopStep3)
+  .expect(Selector('div.gcf-text').withText('Proposal').exists).ok()
+  .click(page.entryDesktopStep0)
+  .expect(Selector('div.os').withText('General information').exists).ok()
+  .click(page.entryDesktopStep1)
+  .expect(Selector('div.gcf-text').withText('Authors').exists).ok()
 
 
 
