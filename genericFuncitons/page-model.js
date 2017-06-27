@@ -64,6 +64,11 @@ export default class Page{
       this.nationality    = Selector('#nationality');
       this.jobTitle       = Selector('#jobTitle');
       this.newTag         = Selector('#newTag');
+      this.entryIntroSave = Selector('#entry-intro-save');
+      this.entryDesktopStep0 = Selector('#entry-desktop-step-0');
+      this.entryDesktopStep1 = Selector('#entry-desktop-step-1');
+      this.entryDesktopStep2 = Selector('#entry-desktop-step-2');
+      this.entryDesktopStep3 = Selector('#entry-desktop-step-3');
 
 //Checkbox on the registration page
       this.chekboxFeatureList = [
