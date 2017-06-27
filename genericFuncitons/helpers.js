@@ -1,12 +1,6 @@
 // Helpers class: write to file
-import config from './config';
-
-export async function(client){
-    click = function(selector){
-      this.waitForElementPresent(selector)
-      this.click(selector)
-      .pause(500);
-
-      return this;
-    }
+export async function randMs(){
+  const d = new Date();
+  var randomMsec = d.getTime();
+  return randomMsec;
   }
