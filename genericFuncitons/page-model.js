@@ -48,6 +48,7 @@ class acceptCookieFeature {
       this.label = Selector('#' + inputId);
     }
 
+
 }
 
 
@@ -58,6 +59,8 @@ export default class Page{
       this.lastname       = Selector('#lastname');
       this.organisation   = Selector('#organisation');
       this.email          = Selector('#email');
+      this.authorEmail   = Selector('#author-email');
+      this.authorsSubmitDesktop = Selector('#authors-submit-desktop');
       this.password       = Selector('#password');
       this.repeatPassword = Selector('#repeatPassword');
       this.title          = Selector('#title');
