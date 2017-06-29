@@ -3,7 +3,8 @@
 import { Selector, getTime , ClientFunction} from 'testcafe';
 import config from './config';
 import Page from '../genericFuncitons/page-model';
-
+var utils = require('../genericFuncitons/helpers');
+var file = '../../../data/data.json'
 
 fixture `init test Global Challenge Foundation Submission`
 .page `${config.baseUrl}/en/submission-platform/sign-in`
@@ -31,7 +32,7 @@ function randMs(){
 
 const page = new Page();
 const PREFIX = 'GCF' + randMs();
-const EMAIL =  PREFIX + "@mailinator.com";
+const EMAILADRESS = utils.eMailAdress('Gcf.');
 const PWD = "Testtest1";
 const ORG = "B-doom";
 const REGISTER_CONTAINER = Selector('.app-col-left');
@@ -57,7 +58,8 @@ var selectGender = Selector('#gender').filter('#gender');
 
 var jsonfile = require('jsonfile')
 var file = '../../../data/data.json'
-var obj = {email: EMAIL}
+var obj = {email: EMAILADRESS}
+
 
 jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
   console.error(err)
@@ -91,7 +93,7 @@ test('Navigate to GCF Register Person test', async t => {
   .typeText(page.organisation, ORG)
 
   .expect(Selector(page.email).exists).ok()
-  .typeText(page.email, EMAIL)
+  .typeText(page.email, EMAILADRESS)
 
   .expect(Selector(page.password).exists).ok()
   .typeText(page.password, PWD)

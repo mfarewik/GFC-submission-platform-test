@@ -6,6 +6,7 @@ import Page from '../genericFuncitons/page-model';
 import Helpers from '../genericFuncitons/helpers'
 
 var utils = require('../genericFuncitons/helpers');
+var file = '../../../data/data.json'
 
 fixture `init test Global Challenge Foundation Submission`
 .page `${config.baseUrl}/en/submission-platform/sign-in`
@@ -24,10 +25,10 @@ fixture `init test Global Challenge Foundation Submission`
 })
 
 const page = new Page();
-var myAuthors;
+
 // const PREFIX = 'GCF' + new utils.randMs();
 const email = 'm8r-qkyx87@mailinator.com';
-const EMAILADRESS = new utils.eMailAdress();
+const EMAILADRESS = utils.eMailAdress('authGcf.');
 const password = "Testtest1";
 const ARTICLE_TITLE = "My Thunder";
 const ARTICLE_TAG = "Myfirst Tag";
@@ -36,6 +37,11 @@ const LOGIN_BUTTON = Selector('.gcf-btn-blue').nth(1);
 const LOGOUT_BUTTON = Selector('a.i.ion-android-exit');
 const REGISTER_BUTTON = Selector('.gcf-btn-blue').nth(0);
 const NEXTSTEP_BUTTON = Selector('.gcf-btn-blue').nth(2);
+const AUTHORS_EMAIL_ADRESS = Selector('div.mobile-hide');
+
+var obj = {email: EMAILADRESS}
+
+utils.writeToFile(file, obj);
 
 
 test('GCF Register Entry Test', async t => {
@@ -76,6 +82,8 @@ test('GCF Register Entry Test', async t => {
   .typeText( page.newTag, ARTICLE_TAG)
   .pressKey('enter')
 
+  .click(page.entryIntroSave)
+
 
 
 //TAB General information/Authors/Proposal/Review & Submit
@@ -94,6 +102,8 @@ test('GCF Register Entry Test', async t => {
   .expect(Selector(page.authorEmail).exists).ok()
   .typeText(page.authorEmail, EMAILADRESS)
   .click(page.authorsSubmitDesktop)
+  //.expect(AUTHORS_EMAIL_ADRESS.find('input[type="title"]').withText(EMAILADRESS).exists).ok()
+
 
 
 
