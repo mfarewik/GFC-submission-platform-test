@@ -110,7 +110,7 @@ test('Navigate to GCF Register Person test', async t => {
   .expect(Selector(page.jobTitle).exists).ok()
   .typeText(page.jobTitle, JOBTITLE)
 
-
+// Input fields
   for (const optionInputFeature of page.optionInputFeatureList){
     await t
       .expect(optionInputFeature.label.exists).ok()
@@ -118,6 +118,8 @@ test('Navigate to GCF Register Person test', async t => {
       .click(optionInputFeature.option2)
   }
 
+
+//  Check Boxes validation
   for (const checkboxFeature of page.chekboxFeatureList) {
     await t
       .expect(checkboxFeature.label.exists).ok()
@@ -126,27 +128,7 @@ test('Navigate to GCF Register Person test', async t => {
       .expect(checkboxFeature.checkbox.checked).ok()
     }
 
-//  Check Boxes validation
-// .expect(Selector('#newsletter').exists).ok()
-// .click('#newsletter')
-// .expect('#newsletter.ccheckbox.checked').ok()
-//
-// .expect(Selector('#terms').exists).ok()
-// .click('#terms')
-// .expect('#terms.checkbox.checked').ok()
-//
-// .expect(Selector('#contact').exists).ok()
-// .click('#contact')
-// .expect('#contact.checkbox.checked').ok()
-//
-// .expect(Selector('#statistics').exists).ok()
-// .click('#statistics')
-// .expect('#statistics.checkbox.checked').ok()
-//
-// .expect(Selector('#late-registration').exists).ok()
-// .click('#late-registration')
-// .expect('#late-registration.checkbox.checked').ok()
-//  Save Btn validation
+
   await t
   .click('#register-btn')
   .expect(Selector('.gcf-btn-blue').exists).ok()
